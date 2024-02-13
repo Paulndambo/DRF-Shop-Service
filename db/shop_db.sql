@@ -1,0 +1,7 @@
+CREATE DATABASE IF NOT EXISTS shopdb;
+
+CREATE TABLE User()
+CREATE TABLE Product()
+CREATE TABLE Notifications()
+CREATE TABLE Order()
+CREATE TABLE OrderItem()
