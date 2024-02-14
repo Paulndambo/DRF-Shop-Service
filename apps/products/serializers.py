@@ -15,7 +15,6 @@ class ProductLogSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-
 class ProductsUploadSerializer(serializers.Serializer):
     products_file = serializers.FileField()
 

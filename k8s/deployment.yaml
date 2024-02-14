@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shop-service-backend
+spec:
+  selector:
+    matchLabels:
+      app: shop-service-backend
+  template:
+    metadata:
+      labels:
+        app: shop-service-backend
+    spec:
+      containers:
+      - name: shop-service-backend
+        image: 40781998/shop-service-backend:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8000
