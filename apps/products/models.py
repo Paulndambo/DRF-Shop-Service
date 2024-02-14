@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 from apps.core.models import AbstractBaseModel
 
@@ -21,9 +23,20 @@ class Product(AbstractBaseModel):
 
 
 class ProductLog(AbstractBaseModel):
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL)
+    product = models.CharField(max_length=255, null=True)
     action = models.CharField(max_length=255, choices=PRODUCT_ACTION_CHOICES)
     quantity = models.IntegerField(default=0)
 
-    def __str__(self):
-        return f"{self.product.name} has been {self.action}"
+    #def __str__(self):
+    #    return f"{self.product.name} has been {self.action}"
+
+
+
+@receiver(post_save, sender=Product)
+def create_product_log(sender, instance, created, **kwargs):
+    if created:
+        ProductLog.objects.create(
+            product=instance.name,
+            action="New Product Added",
+            quantity=instance.quantity
+        )
